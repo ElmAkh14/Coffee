@@ -1,16 +1,135 @@
 import sqlite3
 import sys
 
-from PyQt5 import uic
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox
 
 
-class Coffee(QMainWindow):
+class Ui_main(object):
+    def setupUi(self, main):
+        main.setObjectName("main")
+        main.resize(800, 630)
+        self.centralwidget = QtWidgets.QWidget(main)
+        self.centralwidget.setObjectName("centralwidget")
+        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget.setGeometry(QtCore.QRect(10, 40, 781, 541))
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(0)
+        self.add_button = QtWidgets.QPushButton(self.centralwidget)
+        self.add_button.setGeometry(QtCore.QRect(10, 10, 121, 23))
+        self.add_button.setObjectName("add_button")
+        self.edit_button = QtWidgets.QPushButton(self.centralwidget)
+        self.edit_button.setGeometry(QtCore.QRect(150, 10, 121, 23))
+        self.edit_button.setObjectName("edit_button")
+        self.delete_button = QtWidgets.QPushButton(self.centralwidget)
+        self.delete_button.setGeometry(QtCore.QRect(290, 10, 121, 23))
+        self.delete_button.setObjectName("delete_button")
+        main.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(main)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
+        self.menubar.setObjectName("menubar")
+        main.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(main)
+        self.statusbar.setObjectName("statusbar")
+        main.setStatusBar(self.statusbar)
+
+        self.retranslateUi(main)
+        QtCore.QMetaObject.connectSlotsByName(main)
+
+    def retranslateUi(self, main):
+        _translate = QtCore.QCoreApplication.translate
+        main.setWindowTitle(_translate("main", "Кофе"))
+        self.add_button.setText(_translate("main", "Добавить сорт"))
+        self.edit_button.setText(_translate("main", "Редактировать сорт"))
+        self.delete_button.setText(_translate("main", "Удалить сорт"))
+
+
+class Ui_addEditCoffeeForm(object):
+    def setupUi(self, addEditCoffeeForm):
+        addEditCoffeeForm.setObjectName("addEditCoffeeForm")
+        addEditCoffeeForm.resize(420, 280)
+        self.centralwidget = QtWidgets.QWidget(addEditCoffeeForm)
+        self.centralwidget.setObjectName("centralwidget")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(150, 200, 151, 31))
+        self.pushButton.setObjectName("pushButton")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(10, 10, 91, 16))
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(10, 40, 101, 16))
+        self.label_2.setObjectName("label_2")
+        self.ground_in_grains = QtWidgets.QComboBox(self.centralwidget)
+        self.ground_in_grains.setGeometry(QtCore.QRect(120, 70, 221, 20))
+        self.ground_in_grains.setObjectName("ground_in_grains")
+        self.ground_in_grains.addItem("")
+        self.ground_in_grains.addItem("")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(10, 70, 101, 16))
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(10, 100, 91, 22))
+        self.label_4.setObjectName("label_4")
+        self.degree_of_roasting = QtWidgets.QSpinBox(self.centralwidget)
+        self.degree_of_roasting.setGeometry(QtCore.QRect(120, 40, 91, 22))
+        self.degree_of_roasting.setMinimum(1)
+        self.degree_of_roasting.setMaximum(1000)
+        self.degree_of_roasting.setObjectName("degree_of_roasting")
+        self.sort = QtWidgets.QLineEdit(self.centralwidget)
+        self.sort.setGeometry(QtCore.QRect(120, 10, 221, 20))
+        self.sort.setObjectName("sort")
+        self.description_of_the_taste = QtWidgets.QLineEdit(self.centralwidget)
+        self.description_of_the_taste.setGeometry(QtCore.QRect(120, 100, 221, 20))
+        self.description_of_the_taste.setObjectName("description_of_the_taste")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(10, 130, 91, 22))
+        self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(10, 160, 91, 22))
+        self.label_6.setObjectName("label_6")
+        self.volume = QtWidgets.QSpinBox(self.centralwidget)
+        self.volume.setGeometry(QtCore.QRect(120, 160, 91, 22))
+        self.volume.setMinimum(5)
+        self.volume.setMaximum(1000)
+        self.volume.setObjectName("volume")
+        self.cost = QtWidgets.QDoubleSpinBox(self.centralwidget)
+        self.cost.setGeometry(QtCore.QRect(120, 130, 62, 22))
+        self.cost.setMinimum(5.0)
+        self.cost.setMaximum(100.0)
+        self.cost.setObjectName("cost")
+        addEditCoffeeForm.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(addEditCoffeeForm)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 420, 21))
+        self.menubar.setObjectName("menubar")
+        addEditCoffeeForm.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(addEditCoffeeForm)
+        self.statusbar.setObjectName("statusbar")
+        addEditCoffeeForm.setStatusBar(self.statusbar)
+
+        self.retranslateUi(addEditCoffeeForm)
+        QtCore.QMetaObject.connectSlotsByName(addEditCoffeeForm)
+
+    def retranslateUi(self, addEditCoffeeForm):
+        _translate = QtCore.QCoreApplication.translate
+        addEditCoffeeForm.setWindowTitle(_translate("addEditCoffeeForm", "Добавить запись"))
+        self.pushButton.setText(_translate("addEditCoffeeForm", "Добавить"))
+        self.label.setText(_translate("addEditCoffeeForm", "Название сорта"))
+        self.label_2.setText(_translate("addEditCoffeeForm", "Степень обжарки"))
+        self.ground_in_grains.setItemText(0, _translate("addEditCoffeeForm", "молотый"))
+        self.ground_in_grains.setItemText(1, _translate("addEditCoffeeForm", "в зёрнах"))
+        self.label_3.setText(_translate("addEditCoffeeForm", "Молотый/в зёрнах"))
+        self.label_4.setText(_translate("addEditCoffeeForm", "Описание вкуса"))
+        self.label_5.setText(_translate("addEditCoffeeForm", "Цена"))
+        self.label_6.setText(_translate("addEditCoffeeForm", "Объём упаковки"))
+
+
+class Coffee(QMainWindow, Ui_main):
     def __init__(self):
-        super().__init__()
-        uic.loadUi('main.ui', self)
-        self.con = sqlite3.connect("coffee.sqlite")
+        super(Coffee, self).__init__()
+        self.setupUi(self)
+        self.con = sqlite3.connect("release/data/coffee.sqlite")
         self.cur = self.con.cursor()
         self.coffee_data = None
         self.message = None
@@ -90,10 +209,10 @@ class Coffee(QMainWindow):
         self.con.close()
 
 
-class addEditCoffeeForm(QMainWindow):
+class addEditCoffeeForm(QMainWindow, Ui_addEditCoffeeForm):
     def __init__(self, parent=None, coffee_data=None):
-        super().__init__(parent)
-        uic.loadUi('addEditCoffeeForm.ui', self)
+        super(addEditCoffeeForm, self).__init__(parent)
+        self.setupUi(self)
 
         self.coffee_data = coffee_data
         if self.coffee_data is not None:
